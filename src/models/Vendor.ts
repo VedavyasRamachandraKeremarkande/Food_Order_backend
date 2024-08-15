@@ -32,8 +32,25 @@ const VendorSchema = new Schema(
     serviceAvailable: { type: Boolean },
     coverImages: { type: [String] },
     rating: { type: Number },
+    foods: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'food',
+      },
+    ],
+    lat: { type: Number },
+    lng: { type: Number },
   },
   {
+    toJSON: {
+      transform(doc, ret) {
+        delete ret.password
+        delete ret.salt
+        delete ret.__v
+        delete ret.createdAt
+        delete ret.updatedAt
+      },
+    },
     timestamps: true,
   }
 )

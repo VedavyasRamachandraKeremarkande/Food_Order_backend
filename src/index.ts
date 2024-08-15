@@ -1,7 +1,7 @@
 import express from 'express'
-import { AdminRoute, VandorRoute } from '../routes'
+import { AdminRoute, VandorRoute } from './routes'
 import mongoose, { ConnectOptions } from 'mongoose'
-import { MONGO_URI } from '../config'
+import { MONGO_URI } from './config'
 require('dotenv').config()
 
 const app = express()

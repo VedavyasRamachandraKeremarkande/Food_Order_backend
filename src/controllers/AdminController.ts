@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { CreateVandorInput } from '../dto'
 import { Vendor } from '../models/Vendor'
+import { GeneratePassword, GenerateSalt } from '../utility'
 
 export const FindVendor = async (id: String | undefined, email?: string) => {
   if (email) {
@@ -29,8 +30,15 @@ export const CreateVandor = async (
   const existingVandor = await FindVendor('', email)
 
   if (existingVandor !== null) {
-    return res.json({ message: 'A vandor is exist with this email ID' })
+    return res.json({ message: 'A vendor is exist with this email ID' })
   }
+
+  //generate a salt
+
+  const salt = await GenerateSalt()
+  const userPassword = await GeneratePassword(password, salt)
+
+  // encrypt the password using the salt
 
   const createdVandor = await Vendor.create({
     name: name,
@@ -38,8 +46,8 @@ export const CreateVandor = async (
     pincode: pincode,
     foodType: foodType,
     email: email,
-    password: password,
-    salt: 'sdjfhgsdfjsd jhsgdfjhsd',
+    password: userPassword,
+    salt: salt,
     ownerName: ownerName,
     phone: phone,
     rating: 0,
