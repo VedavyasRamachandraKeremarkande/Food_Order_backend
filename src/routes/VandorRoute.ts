@@ -1,20 +1,14 @@
 import express, { Request, Response, NextFunction } from 'express'
-import {
-  UpdateVendorProfile,
-  UpdateVendorService,
-  VendorLogin,
-} from '../controllers'
+import { GetVendorProfile, UpdateVendorProfile, UpdateVendorService, VendorLogin } from '../controllers'
+import { Authenticate } from '../middleware'
 
 const router = express.Router()
+router.get('/login', VendorLogin);
 
-// router.get('/', (req: Request, res: Response, next: NextFunction) => {
-//   res.json({ message: 'Hello from Vendor' })
-// })
-router.get('/login', VendorLogin)
-//router.use(Authenticate)
-router.get('/profile', VendorLogin)
-router.patch('/profile', UpdateVendorProfile)
-//router.patch('/coverimage', images, UpdateVendorCoverImage)
-router.patch('/service', UpdateVendorService)
+router.use(Authenticate);
+router.get('/profile',GetVendorProfile);
+router.patch('/profile', UpdateVendorProfile);
+router.patch('/service', UpdateVendorService);
+
 
 export { router as VandorRoute }
