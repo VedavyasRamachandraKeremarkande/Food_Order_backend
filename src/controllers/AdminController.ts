@@ -63,7 +63,13 @@ export const GetVandors = async (
   res: Response,
   next: NextFunction
 ) => {
-  res.json({ message: 'Get Vendors' })
+  const vendors = await Vendor.find()
+
+  if (vendors !== null) {
+    return res.json(vendors)
+  }
+
+  return res.json({ message: 'Vendors data not available' })
 }
 
 export const GetVandorByID = async (
@@ -71,35 +77,13 @@ export const GetVandorByID = async (
   res: Response,
   next: NextFunction
 ) => {
-  res.json({ message: 'Vendor by ID' })
+  const vendorId = req.params.id
+
+  const vendorbyId = await FindVendor(vendorId)
+
+  if (vendorbyId !== null) {
+    return res.json(vendorbyId)
+  }
+
+  return res.json({ message: 'vendorbyId data not available' })
 }
-
-// export const GetVandors = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   const vendors = await Vendor.find()
-
-//   if (vendors !== null) {
-//     return res.json(vendors)
-//   }
-
-//   return res.json({ message: 'Vendors data not available' })
-// }
-
-// export const GetVandorByID = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   const vendorId = req.params.id
-
-//   const vendors = await FindVendor(vendorId)
-
-//   if (vendors !== null) {
-//     return res.json(vendors)
-//   }
-
-//   return res.json({ message: 'Vendors data not available' })
-// }
