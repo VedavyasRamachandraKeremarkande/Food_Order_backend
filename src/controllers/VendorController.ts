@@ -75,25 +75,25 @@ export const UpdateVendorService = async (req: Request,res: Response, next: Next
 
   const user = req.user;
 
-  // const { lat, lng} = req.body;
+  const { lat, lng} = req.body;
 
-  // if(user){
+  if(user){
 
-  //    const existingVendor = await FindVendor(user._id);
+     const existingVendor = await FindVendor(user._id);
 
-  //    if(existingVendor !== null){
+     if(existingVendor !== null){
 
-  //         existingVendor.serviceAvailable = !existingVendor.serviceAvailable;
-  //         if(lat && lng){
-  //             existingVendor.lat = lat;
-  //             existingVendor.lng = lng;
-  //         }
-  //         const saveResult = await existingVendor.save();
+          existingVendor.serviceAvailable = !existingVendor.serviceAvailable;
+          // if(lat && lng){
+          //     existingVendor.lat = lat;
+          //     existingVendor.lng = lng;
+          // }
+          const saveResult = await existingVendor.save();
 
-  //         return res.json(saveResult);
-  //    }
+          return res.json(saveResult);
+     }
 
-  // }
+  }
   return res.json({'message': 'Unable to Update vendor profile '})
 
 }
