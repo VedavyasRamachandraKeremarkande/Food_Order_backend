@@ -16,7 +16,7 @@ export const Authenticate = async (
   next: NextFunction
 ) => {
   const signature = await ValidateSignature(req)
-  console.log('ValidateSignature result-->',signature)
+  //console.log('ValidateSignature result-->',signature)
   if (signature) {
     return next()
   } else {

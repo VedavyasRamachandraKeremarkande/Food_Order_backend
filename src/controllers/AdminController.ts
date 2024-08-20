@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { CreateVandorInput } from '../dto'
-import { Vendor } from '../models/Vendor'
+import { Vendor } from '../models'
 import { GeneratePassword, GenerateSalt } from '../utility'
 
 export const FindVendor = async (id: String | undefined, email?: string) => {
@@ -53,6 +53,7 @@ export const CreateVandor = async (
     rating: 0,
     serviceAvailable: false,
     coverImages: [],
+    foods:[]
   })
 
   res.json(createdVandor)
