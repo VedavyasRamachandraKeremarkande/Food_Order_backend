@@ -139,7 +139,7 @@ export const AddFood = async (req: Request, res: Response, next: NextFunction) =
 
           const files = req.files as [Express.Multer.File];
 
-          console.log(files);
+          //console.log(files);
 
           const images = files.map((file: Express.Multer.File) => file.filename);
 
@@ -152,7 +152,7 @@ export const AddFood = async (req: Request, res: Response, next: NextFunction) =
               rating: 0,
               readyTime: readyTime,
               foodType: foodType,
-              images: []
+              images: images
           })
 
           vendor.foods.push(food);
